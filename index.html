@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ReThread — Sustainable Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#1c1a17;--forest:#2c4a30;--sage:#5a8a60;
+  --mist:#c6d9c8;--linen:#f5f0e8;--warm:#ede8dd;
+  --tan:#d8d0c0;--cream:#faf7f2;--stone:#8a7e6e;
+  --rust:#9a4a28;--gold:#c8a84a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--linen);color:var(--ink);overflow-x:hidden}
+
+/* SVG icons shared */
+.icon{display:inline-block;flex-shrink:0}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 6%;
+  background:rgba(245,240,232,.97);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--tan);
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--forest);cursor:pointer;letter-spacing:.01em}
+.nav-logo em{font-style:italic;color:var(--rust)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);transition:color .25s;cursor:pointer;text-decoration:none}
+.nav-links a:hover,.nav-links a.active{color:var(--forest)}
+.nav-right{display:flex;align-items:center;gap:.7rem}
+.nav-icon-btn{
+  position:relative;background:transparent;border:1px solid var(--tan);
+  padding:.55rem 1.1rem;font-family:'Jost',sans-serif;font-size:.72rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--stone);cursor:pointer;
+  transition:all .25s;display:flex;align-items:center;gap:.5rem;
+}
+.nav-icon-btn:hover{border-color:var(--forest);color:var(--forest)}
+.nav-badge{
+  background:var(--forest);color:#fff;
+  font-size:.6rem;font-weight:600;
+  min-width:16px;height:16px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;padding:0 3px;
+}
+.nav-badge.hidden{display:none}
+.nav-cta{
+  background:var(--forest);color:var(--cream);border:none;
+  padding:.65rem 1.6rem;font-family:'Jost',sans-serif;font-size:.72rem;
+  font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;
+}
+.nav-cta:hover{background:var(--ink)}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:68px}
+.page.active{display:block}
+
+/* ── SHARED BUTTONS ── */
+.btn-primary{
+  background:var(--forest);color:var(--cream);border:none;
+  padding:.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:.75rem;
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;text-decoration:none;display:inline-block;
+}
+.btn-primary:hover{background:var(--ink)}
+.btn-secondary{
+  background:transparent;color:var(--forest);
+  border:1px solid var(--forest);
+  padding:.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:.75rem;
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;
+}
+.btn-secondary:hover{background:var(--forest);color:var(--cream)}
+.btn-light{
+  background:var(--cream);color:var(--forest);border:none;
+  padding:.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:.75rem;
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;text-decoration:none;display:inline-block;
+}
+.btn-light:hover{background:var(--linen)}
+
+/* ── SHARED SECTION ── */
+section{padding:6rem 6%}
+.eyebrow{
+  font-size:.68rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--rust);margin-bottom:1rem;
+  display:flex;align-items:center;gap:.7rem;
+}
+.eyebrow::before{content:'';display:inline-block;width:28px;height:1px;background:var(--rust)}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.2;
+  color:var(--ink);margin-bottom:1.4rem;
+}
+.section-title em{font-style:italic;color:var(--forest)}
+.section-body{font-size:.95rem;font-weight:300;line-height:1.95;color:var(--stone)}
+
+/* ── HERO ── */
+.hero{
+  min-height:calc(100vh - 68px);
+  display:grid;grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+.hero-left{
+  background:var(--cream);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 8% 5rem 6%;
+  position:relative;
+}
+.hero-left::after{
+  content:'';position:absolute;right:0;top:10%;bottom:10%;
+  width:1px;background:var(--tan);
+}
+.hero-tag{
+  font-size:.68rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--stone);margin-bottom:2.5rem;
+  display:flex;align-items:center;gap:.7rem;
+}
+.hero-tag::before{content:'';display:inline-block;width:28px;height:1px;background:var(--stone)}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,5vw,5rem);font-weight:300;line-height:.98;
+  color:var(--ink);margin-bottom:2rem;letter-spacing:-.01em;
+}
+.hero h1 em{font-style:italic;color:var(--forest)}
+.hero-sub{
+  font-size:.95rem;font-weight:300;line-height:1.9;
+  color:var(--stone);max-width:440px;margin-bottom:3rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{
+  display:flex;gap:3rem;margin-top:4rem;
+  padding-top:2.5rem;border-top:1px solid var(--tan);
+}
+.h-stat-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;font-weight:400;color:var(--forest);display:block;line-height:1;
+}
+.h-stat-l{font-size:.72rem;font-weight:400;letter-spacing:.08em;color:var(--stone);margin-top:.3rem;display:block}
+
+.hero-right{
+  background:var(--forest);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:4rem 8% 4rem 6%;
+}
+.hero-right::before{
+  content:'';position:absolute;
+  top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;
+  background:rgba(255,255,255,.03);
+}
+.hero-right-label{
+  font-size:.65rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-bottom:.6rem;
+}
+.hero-right-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:300;font-style:italic;
+  color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:3rem;
+}
+.hero-right-stats{display:flex;flex-direction:column;gap:0}
+.hr-stat{
+  padding:1.4rem 0;
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.hr-stat-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:300;color:var(--gold);
+}
+.hr-stat-l{font-size:.7rem;font-weight:400;letter-spacing:.1em;color:rgba(255,255,255,.45)}
+
+/* ── MARQUEE ── */
+.marquee-wrap{
+  background:var(--ink);overflow:hidden;
+  padding:.85rem 0;border-top:1px solid rgba(255,255,255,.04);
+}
+.marquee-track{display:flex;animation:marquee 24s linear infinite;white-space:nowrap}
+.marquee-item{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-style:italic;font-weight:300;
+  color:rgba(255,255,255,.35);padding:0 2.5rem;flex-shrink:0;
+}
+.marquee-sep{color:var(--gold);opacity:.5;margin:0 -.5rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── ABOUT ── */
+#about{
+  background:var(--warm);
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;
+}
+.about-visual{
+  background:var(--linen);border:1px solid var(--tan);
+  aspect-ratio:3/4;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.about-visual::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;
+  background:var(--mist);opacity:.3;
+}
+.about-visual-svg{width:55%;opacity:.55;position:relative;z-index:1}
+.about-visual-caption{
+  position:absolute;bottom:2rem;left:2rem;right:2rem;
+  border-top:1px solid var(--tan);padding-top:1rem;
+}
+.about-visual-caption p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.1rem;font-weight:300;color:var(--stone);line-height:1.5;
+}
+.tag-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:2rem}
+.tag{
+  background:transparent;border:1px solid var(--tan);
+  color:var(--stone);padding:.3rem .9rem;
+  font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+}
+
+/* ── STATS ── */
+.stats-band{
+  background:var(--ink);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat-tile{
+  padding:3rem 2.5rem;
+  border-right:1px solid rgba(255,255,255,.06);
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.stat-tile::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--forest),var(--sage));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.stat-tile:hover::after{transform:scaleX(1)}
+.stat-tile:last-child{border-right:none}
+.stat-tile-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:300;color:var(--cream);display:block;line-height:1;
+}
+.stat-tile-l{
+  font-size:.68rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-top:.6rem;
+}
+
+/* ── HOW IT WORKS ── */
+#how{background:var(--cream)}
+.how-header{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:5rem}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.step{
+  padding:3rem 2.5rem;border-right:1px solid var(--tan);
+  position:relative;transition:background .3s;cursor:pointer;
+}
+.step:last-child{border-right:none}
+.step:hover{background:var(--warm)}
+.step-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.85rem;font-weight:400;color:var(--stone);
+  letter-spacing:.12em;margin-bottom:2rem;display:flex;align-items:center;gap:.8rem;
+}
+.step-n::after{content:'';flex:1;height:1px;background:var(--tan)}
+.step-icon-wrap{
+  width:48px;height:48px;background:var(--forest);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.8rem;transition:background .25s;
+}
+.step:hover .step-icon-wrap{background:var(--rust)}
+.step-icon-wrap svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.step h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:400;color:var(--ink);margin-bottom:.7rem;
+}
+.step p{font-size:.85rem;font-weight:300;line-height:1.8;color:var(--stone)}
+
+/* ── FEATURED BAND ── */
+.featured-band{padding:5rem 6%;background:var(--linen)}
+.band-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem}
+.featured-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+/* ── REWARD ── */
+#reward{background:var(--warm)}
+.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1100px;margin:0 auto}
+.token-card{
+  background:var(--cream);border:1px solid var(--tan);
+  padding:2.8rem;
+  box-shadow:0 4px 32px rgba(0,0,0,.05);
+}
+.tc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem}
+.tc-brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:600;letter-spacing:.04em;color:var(--forest);
+}
+.tc-sub{font-size:.7rem;letter-spacing:.1em;color:var(--stone);margin-top:.25rem;font-weight:400}
+.tc-number{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.9rem;font-weight:300;color:var(--stone);letter-spacing:.1em;
+}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;margin-bottom:1.8rem}
+.stamp{
+  aspect-ratio:1;border:1px solid var(--tan);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--linen);transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.stamp.filled{
+  background:var(--forest);border-color:var(--forest);
+  animation:stampit .35s cubic-bezier(.34,1.56,.64,1);
+}
+.stamp.filled::after{
+  content:'';
+  display:block;width:10px;height:10px;border-radius:50%;
+  background:var(--cream);
+}
+@keyframes stampit{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.prog-track{height:2px;background:var(--tan);margin-bottom:.6rem}
+.prog-fill{height:100%;background:var(--forest);transition:width .6s ease}
+.prog-labels{display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.1em;color:var(--stone);margin-bottom:1.8rem}
+.reward-revealed{
+  display:none;background:var(--forest);color:var(--cream);
+  padding:1.2rem;text-align:center;
+  font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;
+  margin-bottom:1.2rem;
+}
+.reward-revealed.show{display:block;animation:fadeUp .4s ease}
+.tc-action{
+  width:100%;background:var(--forest);color:var(--cream);border:none;
+  padding:.95rem;font-family:'Jost',sans-serif;font-size:.72rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .25s;
+}
+.tc-action:hover{background:var(--ink)}
+
+/* ── WHY ── */
+#why{background:var(--cream)}
+.why-intro{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:end;margin-bottom:4rem}
+.reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.reason{
+  padding:2.5rem 2.5rem;border-right:1px solid var(--tan);border-top:1px solid var(--tan);
+  transition:background .3s;
+}
+.reason:hover{background:var(--warm)}
+.reason:nth-child(3n){border-right:none}
+.reason-icon-wrap{
+  width:40px;height:40px;border:1px solid var(--tan);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.4rem;
+}
+.reason-icon-wrap svg{width:16px;height:16px;stroke:var(--forest);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.reason h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:.5rem;
+}
+.reason p{font-size:.83rem;font-weight:300;line-height:1.8;color:var(--stone)}
+
+/* ── VISION ── */
+#vision{background:var(--forest);padding:8rem 6%;text-align:center}
+.vision-inner{max-width:800px;margin:0 auto}
+.vision-eyebrow{font-size:.65rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2rem;justify-content:center}
+.vision-q{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;font-style:italic;
+  color:#fff;line-height:1.5;margin-bottom:3rem;
+}
+.vision-divider{width:48px;height:1px;background:rgba(255,255,255,.2);margin:0 auto 3rem}
+.vision-body{font-size:.93rem;font-weight:300;line-height:1.95;color:rgba(255,255,255,.55);margin-bottom:1.2rem}
+.vision-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:3rem}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:5rem 6% 2.5rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.f-brand-name{
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;
+  color:rgba(255,255,255,.85);margin-bottom:1rem;cursor:pointer;
+}
+.f-brand-name em{font-style:italic;color:var(--sage)}
+.f-tagline{font-size:.85rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.3);max-width:260px}
+.f-col h5{font-size:.65rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.2rem}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.f-col a{font-size:.85rem;font-weight:300;color:rgba(255,255,255,.4);transition:color .2s;cursor:pointer;text-decoration:none}
+.f-col a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{padding-top:2rem;display:flex;justify-content:space-between;font-size:.7rem;letter-spacing:.08em;color:rgba(255,255,255,.18)}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  background:var(--warm);padding:3rem 6% 2.5rem;border-bottom:1px solid var(--tan);
+}
+.back-btn{
+  background:none;border:none;color:var(--stone);font-size:.72rem;
+  font-family:'Jost',sans-serif;cursor:pointer;margin-bottom:1.2rem;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.5rem;transition:color .2s;
+}
+.back-btn:hover{color:var(--forest)}
+.back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round}
+.page-h1{
+  font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--ink);
+}
+.page-sub{font-size:.88rem;font-weight:300;color:var(--stone);margin-top:.4rem}
+
+/* ── DONATE PAGE ── */
+.donate-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:3rem 6%}
+.panel{background:var(--warm);border:1px solid var(--tan);padding:2.5rem;height:fit-content}
+.panel-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--ink);margin-bottom:.3rem}
+.panel-sub{font-size:.83rem;font-weight:300;color:var(--stone);margin-bottom:2rem}
+
+.camera-area{
+  width:100%;aspect-ratio:4/3;background:var(--linen);
+  border:1px dashed var(--tan);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;
+  cursor:pointer;transition:border-color .25s,background .25s;
+  position:relative;overflow:hidden;margin-bottom:1.2rem;
+}
+.camera-area:hover{border-color:var(--sage);background:var(--cream)}
+.camera-area.has-image{border-style:solid;border-color:var(--sage)}
+.camera-area img.preview,.camera-area video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.cam-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  opacity:0;transition:opacity .2s;z-index:2;
+}
+.camera-area:hover .cam-overlay{opacity:1}
+.cam-placeholder{display:flex;flex-direction:column;align-items:center;gap:.6rem;z-index:1}
+.cam-placeholder svg{width:32px;height:32px;stroke:var(--stone);fill:none;stroke-width:1;stroke-linecap:round}
+.cam-placeholder p{font-size:.78rem;font-weight:400;color:var(--stone);text-align:center}
+.cam-placeholder span{font-size:.7rem;color:var(--tan);letter-spacing:.06em}
+
+.cam-controls{display:flex;gap:.6rem;margin-bottom:1.5rem}
+.cam-btn{
+  flex:1;background:var(--linen);border:1px solid var(--tan);
+  padding:.6rem .8rem;font-family:'Jost',sans-serif;font-size:.72rem;
+  font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);
+  cursor:pointer;transition:all .2s;
+}
+.cam-btn:hover{border-color:var(--forest);color:var(--forest)}
+#fileInput{display:none}
+
+.form-field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
+.form-field label{font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+.form-field input,.form-field select,.form-field textarea{
+  background:var(--cream);border:1px solid var(--tan);
+  padding:.65rem .9rem;font-family:'Jost',sans-serif;font-size:.88rem;
+  color:var(--ink);transition:border-color .2s;resize:none;outline:none;
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--sage)}
+.form-row{display:flex;gap:.8rem}
+.form-row .form-field{flex:1}
+
+.add-item-btn{
+  width:100%;background:var(--forest);color:var(--cream);border:none;
+  padding:.95rem;font-family:'Jost',sans-serif;font-size:.72rem;
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;margin-top:.5rem;
+}
+.add-item-btn:hover{background:var(--ink)}
+.add-item-btn:disabled{background:var(--tan);color:var(--stone);cursor:not-allowed}
+
+.basket-empty{padding:3rem 1rem;text-align:center;color:var(--stone);font-size:.88rem;font-weight:300}
+.basket-empty-icon{width:40px;height:40px;stroke:var(--tan);fill:none;stroke-width:1;stroke-linecap:round;margin:0 auto 1rem;display:block}
+.basket-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.5rem}
+.basket-item{
+  background:var(--cream);border:1px solid var(--tan);
+  padding:.9rem 1rem;display:flex;gap:1rem;align-items:center;
+  animation:slideIn .3s ease;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.bi-thumb{
+  width:52px;height:52px;background:var(--warm);flex-shrink:0;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.bi-thumb img{width:100%;height:100%;object-fit:cover}
+.bi-thumb svg{width:22px;height:22px;stroke:var(--tan);fill:none;stroke-width:1;stroke-linecap:round}
+.bi-info{flex:1;min-width:0}
+.bi-name{font-weight:500;font-size:.88rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bi-meta{font-size:.74rem;color:var(--stone);font-weight:300;margin-top:.15rem}
+.bi-remove{background:none;border:none;cursor:pointer;color:var(--tan);transition:color .2s;flex-shrink:0;padding:.2rem;line-height:1;font-size:1rem}
+.bi-remove:hover{color:var(--rust)}
+
+.basket-summary{background:var(--linen);border:1px solid var(--tan);padding:1.2rem;margin-bottom:1.2rem}
+.bs-row{display:flex;justify-content:space-between;font-size:.83rem;margin-bottom:.5rem}
+.bs-row:last-child{margin-bottom:0;font-weight:500;color:var(--forest)}
+.bs-row span:first-child{color:var(--stone);font-weight:300}
+.submit-btn{
+  width:100%;background:var(--forest);color:var(--cream);border:none;
+  padding:1rem;font-family:'Jost',sans-serif;font-size:.72rem;
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;
+}
+.submit-btn:hover{background:var(--ink)}
+.submit-btn:disabled{background:var(--tan);color:var(--stone);cursor:not-allowed}
+
+.mini-card{background:var(--cream);border:1px solid var(--tan);padding:1.8rem;margin-top:1.5rem}
+.mini-card-head{display:flex;justify-content:space-between;margin-bottom:1rem}
+.mini-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--forest)}
+.mini-sub{font-size:.68rem;letter-spacing:.1em;color:var(--stone)}
+
+/* ── SHOP PAGE ── */
+.shop-header{background:var(--warm);padding:2.5rem 6% 2rem;border-bottom:1px solid var(--tan)}
+.shop-controls{display:flex;gap:.6rem;align-items:center;margin-top:1.5rem;flex-wrap:wrap}
+.filter-btn{
+  background:transparent;border:1px solid var(--tan);
+  padding:.4rem 1rem;font-family:'Jost',sans-serif;font-size:.7rem;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);
+  cursor:pointer;transition:all .2s;
+}
+.filter-btn:hover,.filter-btn.active{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+.shop-sort{
+  margin-left:auto;background:transparent;border:1px solid var(--tan);
+  padding:.4rem 1rem;font-family:'Jost',sans-serif;font-size:.7rem;
+  font-weight:500;color:var(--stone);cursor:pointer;outline:none;
+}
+.shop-info-bar{
+  display:none;background:var(--forest);color:var(--cream);
+  padding:.9rem 6%;font-size:.78rem;font-weight:400;letter-spacing:.06em;
+}
+.shop-info-bar.show{display:block}
+
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--tan);padding:0 6%}
+.product-card{
+  background:var(--cream);
+  overflow:hidden;transition:background .25s;cursor:pointer;
+  position:relative;
+}
+.product-card:hover{background:var(--warm)}
+.product-img{
+  width:100%;aspect-ratio:3/4;background:var(--warm);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.product-img svg{width:60px;height:60px;stroke:var(--mist);fill:none;stroke-width:1;stroke-linecap:round;opacity:.6}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.product-badge-tag{
+  position:absolute;top:1rem;left:1rem;
+  background:var(--rust);color:#fff;
+  font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  padding:.25rem .7rem;
+}
+.free-badge{background:var(--forest)}
+.product-body{padding:1.4rem 1.6rem 1.8rem}
+.product-cat{font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-bottom:.4rem}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;color:var(--ink);margin-bottom:.35rem}
+.product-story{font-size:.78rem;font-weight:300;line-height:1.65;color:var(--stone);margin-bottom:1rem}
+.product-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.product-price{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--ink)}
+.atc-btn{
+  background:var(--forest);color:var(--cream);border:none;
+  padding:.5rem 1.2rem;font-family:'Jost',sans-serif;font-size:.68rem;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:background .2s;white-space:nowrap;
+}
+.atc-btn:hover{background:var(--ink)}
+.atc-btn.free-btn{background:var(--rust)}
+
+/* ── PRODUCT MODAL ── */
+#productModal{display:none;position:fixed;inset:0;z-index:500;background:rgba(28,26,23,.6);align-items:center;justify-content:center;padding:1rem}
+#productModal.open{display:flex}
+.pm-inner{background:var(--cream);width:min(720px,96vw);overflow:hidden;display:grid;grid-template-columns:1fr 1fr;max-height:90vh;overflow-y:auto}
+.pm-img{background:var(--warm);display:flex;align-items:center;justify-content:center;min-height:320px}
+.pm-img svg{width:70px;height:70px;stroke:var(--mist);fill:none;stroke-width:1;opacity:.6;stroke-linecap:round}
+.pm-body{padding:3rem 2.5rem;display:flex;flex-direction:column;gap:1rem}
+.pm-close{background:none;border:none;cursor:pointer;color:var(--stone);font-size:1.2rem;line-height:1;align-self:flex-end;transition:color .2s}
+.pm-close:hover{color:var(--ink)}
+.pm-cat{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.pm-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--ink);line-height:1.2}
+.pm-price{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--forest)}
+.pm-desc{font-size:.85rem;font-weight:300;line-height:1.8;color:var(--stone)}
+.pm-details{display:flex;flex-direction:column;gap:.4rem;font-size:.78rem;color:var(--stone);font-weight:300}
+.pm-details strong{color:var(--ink);font-weight:500}
+.pm-atc{
+  background:var(--forest);color:var(--cream);border:none;
+  padding:1rem;font-family:'Jost',sans-serif;font-size:.72rem;
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;margin-top:auto;
+}
+.pm-atc:hover{background:var(--ink)}
+
+/* ── CART PAGE ── */
+.cart-layout{display:grid;grid-template-columns:1fr 360px;gap:3rem;padding:3rem 6%}
+.cart-items{display:flex;flex-direction:column;gap:1px;background:var(--tan)}
+.cart-item{background:var(--cream);padding:1.5rem;display:flex;gap:1.5rem;align-items:center}
+.cart-thumb{width:80px;height:80px;background:var(--warm);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cart-thumb svg{width:28px;height:28px;stroke:var(--mist);fill:none;stroke-width:1;stroke-linecap:round}
+.cart-info{flex:1}
+.cart-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--ink);margin-bottom:.2rem}
+.cart-meta{font-size:.75rem;color:var(--stone);font-weight:300;margin-bottom:.6rem}
+.cart-qty{display:flex;align-items:center;gap:.7rem}
+.qty-btn{background:var(--warm);border:1px solid var(--tan);width:26px;height:26px;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:'Jost',sans-serif;font-weight:600}
+.qty-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+.qty-n{font-size:.85rem;font-weight:500;min-width:20px;text-align:center}
+.cart-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--ink);margin-left:auto;flex-shrink:0}
+.cart-remove{background:none;border:none;cursor:pointer;color:var(--tan);font-size:1.1rem;transition:color .2s;flex-shrink:0;padding:.2rem}
+.cart-remove:hover{color:var(--rust)}
+.free-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--forest);color:var(--cream);padding:.2rem .6rem;display:inline-block;margin-left:.5rem}
+
+.order-summary{background:var(--cream);border:1px solid var(--tan);padding:2.2rem;height:fit-content}
+.os-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--ink);margin-bottom:1.5rem}
+.os-row{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.7rem}
+.os-row span:first-child{color:var(--stone);font-weight:300}
+.os-divider{border:none;border-top:1px solid var(--tan);margin:1rem 0}
+.os-total{display:flex;justify-content:space-between;font-weight:500;font-size:.95rem;margin-bottom:1.5rem}
+.free-notice{background:var(--forest);color:var(--cream);padding:.8rem 1rem;font-size:.78rem;font-weight:400;letter-spacing:.06em;text-align:center;margin-bottom:1.2rem}
+.cart-empty{text-align:center;padding:6rem 2rem}
+.cart-empty svg{width:48px;height:48px;stroke:var(--tan);fill:none;stroke-width:1;stroke-linecap:round;margin:0 auto 1.5rem;display:block}
+.cart-empty p{font-size:.9rem;font-weight:300;color:var(--stone);margin-bottom:1.5rem}
+
+/* ── CHECKOUT PAGE ── */
+.checkout-layout{display:grid;grid-template-columns:1fr 360px;gap:3rem;padding:3rem 6%}
+.co-section{background:var(--cream);border:1px solid var(--tan);padding:2rem;margin-bottom:1.5rem}
+.co-section h3{
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;
+  color:var(--ink);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;
+}
+.co-step-n{
+  width:22px;height:22px;background:var(--forest);color:#fff;
+  border-radius:50%;font-family:'Jost',sans-serif;font-size:.7rem;font-weight:500;
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.place-btn{
+  width:100%;background:var(--forest);color:var(--cream);border:none;
+  padding:1.1rem;font-family:'Jost',sans-serif;font-size:.75rem;
+  font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  cursor:pointer;transition:background .25s;
+}
+.place-btn:hover{background:var(--ink)}
+
+/* ── CONFIRM PAGE ── */
+#page-confirm.active{display:flex;align-items:center;justify-content:center}
+.confirm-box{
+  background:var(--warm);border:1px solid var(--tan);
+  padding:5rem 4rem;max-width:520px;width:100%;text-align:center;
+}
+.confirm-icon{
+  width:56px;height:56px;background:var(--forest);margin:0 auto 2rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.confirm-icon svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.confirm-box h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;color:var(--ink);margin-bottom:1rem}
+.confirm-box p{font-size:.9rem;font-weight:300;line-height:1.85;color:var(--stone);margin-bottom:.7rem}
+.confirm-num{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--forest);letter-spacing:.08em}
+
+/* ── CAMERA MODAL ── */
+#cameraModal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);align-items:center;justify-content:center}
+#cameraModal.open{display:flex}
+.cam-modal-inner{background:var(--cream);padding:2rem;width:min(500px,92vw);display:flex;flex-direction:column;gap:1rem}
+.cam-modal-inner h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--ink)}
+#liveVideo{width:100%;background:#000;aspect-ratio:4/3;object-fit:cover}
+.cam-modal-btns{display:flex;gap:.8rem}
+.snap-btn{flex:1;background:var(--forest);color:var(--cream);border:none;padding:.8rem;font-family:'Jost',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s}
+.snap-btn:hover{background:var(--ink)}
+.cancel-btn{background:transparent;color:var(--stone);border:1px solid var(--tan);padding:.8rem 1.4rem;font-family:'Jost',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.cancel-btn:hover{border-color:var(--rust);color:var(--rust)}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:2.5rem;left:50%;
+  transform:translateX(-50%) translateY(120px);
+  background:var(--ink);color:var(--cream);
+  padding:.75rem 2rem;font-size:.75rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:0 8px 32px rgba(0,0,0,.25);z-index:999;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  #about{grid-template-columns:1fr;gap:3rem}
+  .stats-band{grid-template-columns:1fr 1fr}
+  .how-header{grid-template-columns:1fr;gap:2rem}
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .featured-row{grid-template-columns:1fr 1fr}
+  .reward-grid{grid-template-columns:1fr;gap:3rem}
+  .why-intro{grid-template-columns:1fr;gap:2rem}
+  .reasons{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr;gap:3rem}
+  .shop-grid{grid-template-columns:1fr 1fr}
+  .cart-layout,.checkout-layout{grid-template-columns:1fr}
+  .pm-inner{grid-template-columns:1fr}
+  .donate-layout{grid-template-columns:1fr;gap:2rem}
+}
+@media(max-width:580px){
+  .nav-links{display:none}
+  .shop-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .reasons{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem}
+  .stats-band{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Re<em>Thread</em></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nl-home">Home</a></li>
+    <li><a onclick="goTo('home','about')">About</a></li>
+    <li><a onclick="goTo('home','how')">Process</a></li>
+    <li><a onclick="showPage('donate')" id="nl-donate">Donate</a></li>
+    <li><a onclick="showPage('shop')" id="nl-shop">Shop</a></li>
+    <li><a onclick="goTo('home','reward')">My Card</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-icon-btn" onclick="showPage('donate')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8l-2 4h12l-2-4z"/></svg>
+      Donations
+      <span id="donateCount" class="nav-badge hidden">0</span>
+    </button>
+    <button class="nav-icon-btn" onclick="showPage('cart')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-7.43H6"/></svg>
+      Cart
+      <span id="cartCount" class="nav-badge hidden">0</span>
+    </button>
+    <button class="nav-cta" onclick="showPage('shop')">Shop Now</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════ HOME ══════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Circular Fashion — Est. 2024</div>
+      <h1>Donate, shop<br/>&amp; give fashion<br/><em>a second life</em></h1>
+      <p class="hero-sub">We transform unwanted clothing into unique, upcycled pieces. Donate your old garments, earn reward stamps, and shop our curated sustainable collection.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('donate')">Donate a Garment</button>
+        <button class="btn-secondary" onclick="showPage('shop')">Browse Collection</button>
+      </div>
+      <div class="hero-stats">
+        <div><span class="h-stat-n" id="heroCount">0</span><span class="h-stat-l">Garments donated</span></div>
+        <div><span class="h-stat-n" id="heroSold">0</span><span class="h-stat-l">Items purchased</span></div>
+        <div><span class="h-stat-n">2</span><span class="h-stat-l">Free items when card full</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-right-label">Our Mission</div>
+      <div class="hero-right-quote">"Every garment that leaves our atelier carries the story of someone who chose to do better."</div>
+      <div class="hero-right-stats">
+        <div class="hr-stat">
+          <span class="hr-stat-n">92M</span>
+          <span class="hr-stat-l">Tons of textile waste yearly</span>
+        </div>
+        <div class="hr-stat">
+          <span class="hr-stat-n">0%</span>
+          <span class="hr-stat-l">Of our garments reach landfill</span>
+        </div>
+        <div class="hr-stat">
+          <span class="hr-stat-n">100%</span>
+          <span class="hr-stat-l">Upcycled materials</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Sustainable Upcycling</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Circular Economy</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Zero Textile Waste</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Ethical Fashion</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Donate &amp; Earn Rewards</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Sustainable Upcycling</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Circular Economy</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Zero Textile Waste</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Ethical Fashion</span><span class="marquee-item marquee-sep">·</span>
+      <span class="marquee-item">Donate &amp; Earn Rewards</span><span class="marquee-item marquee-sep">·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-visual reveal">
+      <svg class="about-visual-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M80 24 Q80 12 92 12 Q104 12 104 24" stroke="#5a8a60" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <line x1="80" y1="24" x2="28" y2="64" stroke="#5a8a60" stroke-width="2" stroke-linecap="round"/>
+        <line x1="80" y1="24" x2="132" y2="64" stroke="#5a8a60" stroke-width="2" stroke-linecap="round"/>
+        <path d="M28 64 L36 58 L58 70 L58 132 L102 132 L102 70 L124 58 L132 64 L114 74 L114 136 Q114 142 108 142 L52 142 Q46 142 46 136 L46 74 Z" fill="#c6d9c8" stroke="#5a8a60" stroke-width="1.5"/>
+        <path d="M68 98 Q80 88 92 98 Q84 103 80 108 Q76 103 68 98Z" fill="#2c4a30" opacity=".4"/>
+        <path d="M68 112 Q80 122 92 112 Q84 107 80 102 Q76 107 68 112Z" fill="#2c4a30" opacity=".4"/>
+        <path d="M115 36 Q126 24 128 40 Q120 48 115 36Z" fill="#5a8a60" stroke="#2c4a30" stroke-width="1"/>
+        <line x1="115" y1="36" x2="125" y2="33" stroke="#2c4a30" stroke-width="1"/>
+      </svg>
+      <div class="about-visual-caption">
+        <p>"Every garment deserves a second life."</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Our Story</div>
+      <h2 class="section-title">Built on the belief<br/>that fashion can be <em>responsible</em></h2>
+      <p class="section-body" style="margin-bottom:1.3rem">Every year, millions of tons of clothing end up in landfills — contributing to pollution, wasted resources, and unnecessary damage. We aim to change that by giving unwanted clothing a second life.</p>
+      <p class="section-body" style="margin-bottom:1.3rem">Customers donate clothes they no longer wear. Our atelier carefully collects, sorts, and transforms them into unique, high-quality items through creative redesign and upcycling.</p>
+      <p class="section-body" style="margin-bottom:2.5rem">Our mission is a circular fashion economy where clothing remains in use for as long as possible, reducing the demand for new production.</p>
+      <div class="tag-row" style="margin-bottom:2.5rem">
+        <span class="tag">Upcycled</span>
+        <span class="tag">Eco-friendly</span>
+        <span class="tag">Circular</span>
+        <span class="tag">Ethical</span>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <button class="btn-primary" onclick="showPage('donate')">Donate a Garment</button>
+        <button class="btn-secondary" onclick="showPage('shop')">Browse Shop</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-band reveal">
+    <div class="stat-tile"><span class="stat-tile-n">100%</span><div class="stat-tile-l">Upcycled Materials</div></div>
+    <div class="stat-tile"><span class="stat-tile-n">−60%</span><div class="stat-tile-l">Carbon Footprint</div></div>
+    <div class="stat-tile"><span class="stat-tile-n">∞</span><div class="stat-tile-l">Circular Cycle</div></div>
+    <div class="stat-tile"><span class="stat-tile-n">2×</span><div class="stat-tile-l">Free Items Reward</div></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="how-header">
+      <div class="reveal">
+        <div class="eyebrow">The Process</div>
+        <h2 class="section-title">How it<br/><em>works</em></h2>
+      </div>
+      <div class="reveal section-body">From your wardrobe to someone else's — a four-step journey that keeps clothing out of landfills and rewards every donation.</div>
+    </div>
+    <div class="steps-grid" style="border:1px solid var(--tan)">
+      <div class="step reveal" onclick="showPage('donate')">
+        <div class="step-n">01</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Photograph &amp; Donate</h3>
+        <p>Snap a photo of your unwanted garments, add a few details, and submit your donation. Each item earns a reward stamp.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.1s">
+        <div class="step-n">02</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>We Upcycle</h3>
+        <p>Our atelier carefully collects, sorts, and transforms donated garments into new, beautifully designed clothing items.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.2s" onclick="showPage('shop')">
+        <div class="step-n">03</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-7.43H6"/></svg>
+        </div>
+        <h3>You Shop</h3>
+        <p>Browse our curated upcycled collection and purchase sustainably. Every piece has a story and a purpose.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:.3s" onclick="goTo('home','reward')">
+        <div class="step-n">04</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3>Earn Rewards</h3>
+        <p>Fill your Sustainability Token Card with 10 donation stamps and redeem it for two complimentary items.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <div class="featured-band">
+    <div class="band-header reveal">
+      <div>
+        <div class="eyebrow">Just In</div>
+        <h2 class="section-title" style="margin-bottom:0">Featured <em>pieces</em></h2>
+      </div>
+      <button class="btn-secondary" onclick="showPage('shop')">View All Collection</button>
+    </div>
+    <div id="featuredGrid" class="featured-row" style="gap:1px;background:var(--tan)"></div>
+  </div>
+
+  <!-- REWARD -->
+  <section id="reward">
+    <div class="reward-grid">
+      <div class="reveal">
+        <div class="eyebrow">Loyalty Rewards</div>
+        <h2 class="section-title">Your Sustainability<br/><em>Token Card</em></h2>
+        <p class="section-body" style="margin-bottom:1.4rem">Every time you donate a garment, you earn one stamp. Collect all ten and redeem your card for two complimentary items from our collection — your choice, entirely free.</p>
+        <p class="section-body" style="margin-bottom:2.5rem">Free items are redeemable directly in the shop. When your card is complete, items are automatically discounted at checkout.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <button class="btn-primary" onclick="showPage('donate')">Donate to Earn Stamps</button>
+          <button class="btn-secondary" onclick="showPage('shop')">Redeem in Shop</button>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="token-card">
+          <div class="tc-head">
+            <div>
+              <div class="tc-brand">ReThread Rewards</div>
+              <div class="tc-sub" id="tcSubHome">0 of 10 stamps collected</div>
+            </div>
+            <div class="tc-number">TOKEN CARD</div>
+          </div>
+          <div class="stamps" id="stampsHome"></div>
+          <div class="prog-track"><div class="prog-fill" id="progFillHome" style="width:0%"></div></div>
+          <div class="prog-labels">
+            <span id="progTextHome">0 / 10</span>
+            <span>Complete</span>
+          </div>
+          <div class="reward-revealed" id="rewardMsgHome">Card complete — 2 free items await you in the shop.</div>
+          <button class="tc-action" onclick="showPage('donate')">Donate to Earn a Stamp</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why">
+    <div class="why-intro">
+      <div class="reveal">
+        <div class="eyebrow">Our Promise</div>
+        <h2 class="section-title">Why choose<br/><em>ReThread?</em></h2>
+      </div>
+      <div class="reveal section-body">We are more than a clothing store — we are a movement. Every purchase and every donation directly contributes to a more sustainable planet.</div>
+    </div>
+    <div class="reasons" style="border-bottom:1px solid var(--tan)">
+      <div class="reason reveal">
+        <div class="reason-icon-wrap"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+        <h3>Reduces Textile Waste</h3>
+        <p>Every garment finds a second purpose rather than a landfill. We keep clothing in circulation through thoughtful upcycling.</p>
+      </div>
+      <div class="reason reveal" style="transition-delay:.1s">
+        <div class="reason-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Ethical Practices</h3>
+        <p>Every piece is produced sustainably, ethically, and with deep respect for the environment and its communities.</p>
+      </div>
+      <div class="reason reveal" style="transition-delay:.2s">
+        <div class="reason-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2v6M12 22v-6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M22 12h-6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/></svg></div>
+        <h3>Conserves Resources</h3>
+        <p>Reusing existing materials significantly lowers water consumption, energy use, and carbon emissions.</p>
+      </div>
+      <div class="reason reveal" style="transition-delay:.3s">
+        <div class="reason-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Community Driven</h3>
+        <p>We build a community of conscious consumers who believe that individual choices create collective change.</p>
+      </div>
+      <div class="reason reveal" style="transition-delay:.4s">
+        <div class="reason-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <h3>Real Rewards</h3>
+        <p>Our Token Card transforms sustainable habits into tangible benefits — free clothing for choosing the planet.</p>
+      </div>
+      <div class="reason reveal" style="transition-delay:.5s;background:var(--forest)">
+        <div class="reason-icon-wrap" style="border-color:rgba(255,255,255,.15)"><svg viewBox="0 0 24 24" style="stroke:rgba(255,255,255,.6)"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <h3 style="color:rgba(255,255,255,.85)">One at a Time</h3>
+        <p style="color:rgba(255,255,255,.5)">Together we can make fashion sustainable — one garment, one donation, one community at a time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision">
+    <div class="vision-inner reveal">
+      <div class="eyebrow vision-eyebrow">Our Vision</div>
+      <blockquote class="vision-q">"We envision a future where fashion is part of the solution rather than part of the problem."</blockquote>
+      <div class="vision-divider"></div>
+      <p class="vision-body">By turning old clothes into new opportunities, we help create a cleaner environment and inspire more sustainable consumer habits. Every donation, purchase, and recycled garment contributes to a greener future.</p>
+      <p class="vision-body">Together, we can make fashion more sustainable — one piece of clothing at a time.</p>
+      <div class="vision-btns">
+        <button class="btn-light" onclick="showPage('donate')">Donate Now</button>
+        <button class="btn-light" onclick="showPage('shop')">Shop Collection</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="f-brand-name" onclick="showPage('home')">Re<em>Thread</em></div>
+        <p class="f-tagline">Fashion that gives back. Donate, shop, earn rewards — one garment at a time.</p>
+      </div>
+      <div class="f-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a onclick="goTo('home','about')">About Us</a></li>
+          <li><a onclick="goTo('home','how')">How It Works</a></li>
+          <li><a onclick="goTo('home','reward')">Reward Card</a></li>
+          <li><a onclick="goTo('home','why')">Our Values</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Take Action</h5>
+        <ul>
+          <li><a onclick="showPage('donate')">Donate Clothing</a></li>
+          <li><a onclick="showPage('shop')">Shop Collection</a></li>
+          <li><a onclick="showPage('cart')">View Cart</a></li>
+          <li><a onclick="goTo('home','reward')">Token Card</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 ReThread. All rights reserved.</span>
+      <span>Made with care for the planet.</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════ DONATE PAGE ══════════════════════════ -->
+<div id="page-donate" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </button>
+    <div class="eyebrow">Step 1 of 4</div>
+    <div class="page-h1">Donate a Garment</div>
+    <div class="page-sub">Photograph your item, add details, then submit. Each garment earns one stamp on your reward card.</div>
+  </div>
+  <div class="donate-layout">
+    <div>
+      <div class="panel">
+        <div class="panel-title">Add a Garment</div>
+        <div class="panel-sub">Upload a photo or use your camera</div>
+        <div class="camera-area" id="cameraArea" onclick="triggerUpload()">
+          <div class="cam-placeholder">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>
+            <p>Click to upload a photograph</p>
+            <span>or use camera below</span>
+          </div>
+          <div class="cam-overlay">Change photograph</div>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" onchange="handleFile(event)"/>
+        <canvas id="snapCanvas" style="display:none"></canvas>
+        <div class="cam-controls">
+          <button class="cam-btn" onclick="triggerUpload()">Upload Photo</button>
+          <button class="cam-btn" onclick="openCamera()">Use Camera</button>
+          <button class="cam-btn" id="btnClear" onclick="clearPhoto()" style="display:none">Clear</button>
+        </div>
+        <div class="form-field">
+          <label>Item Name</label>
+          <input type="text" id="itemName" placeholder="e.g. Blue denim jacket" oninput="checkForm()"/>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Category</label>
+            <select id="itemCat" onchange="checkForm()">
+              <option value="">Select...</option>
+              <option>Tops &amp; T-Shirts</option><option>Jackets &amp; Coats</option>
+              <option>Trousers &amp; Jeans</option><option>Dresses &amp; Skirts</option>
+              <option>Shoes &amp; Boots</option><option>Accessories</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Condition</label>
+            <select id="itemCond" onchange="checkForm()">
+              <option value="">Select...</option>
+              <option>Like New</option><option>Good</option><option>Fair</option><option>Needs Repair</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Notes (optional)</label>
+          <textarea id="itemNote" rows="2" placeholder="Any details about the item..."></textarea>
+        </div>
+        <button class="add-item-btn" id="addItemBtn" onclick="addToBasket()" disabled>Add to Donation Basket</button>
+      </div>
+    </div>
+    <div>
+      <div class="panel" id="donateBasket">
+        <div class="panel-title">Donation Basket</div>
+        <div class="panel-sub">Items ready to submit</div>
+        <div id="basketEmpty" class="basket-empty">
+          <svg class="basket-empty-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Add your first garment to begin.
+        </div>
+        <div id="basketList" class="basket-list" style="display:none"></div>
+        <div id="basketSummaryEl" class="basket-summary" style="display:none">
+          <div class="bs-row"><span>Items in basket</span><span id="bsCount">0</span></div>
+          <div class="bs-row"><span>Stamps to earn</span><span id="bsStamps">0</span></div>
+          <div class="bs-row"><span>Total stamps after</span><span id="bsTotal">0 / 10</span></div>
+        </div>
+        <button class="submit-btn" id="submitBtn" onclick="submitDonation()" disabled>Submit Donation &amp; Earn Stamps</button>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-head">
+          <div><div class="mini-brand">ReThread Rewards</div><div class="mini-sub tc-sub" id="tcSubDonate">0 / 10 stamps</div></div>
+          <span style="font-size:.65rem;letter-spacing:.12em;color:var(--stone);text-transform:uppercase;font-weight:500">Token Card</span>
+        </div>
+        <div class="stamps" id="stampsDonate" style="gap:.4rem"></div>
+        <div class="prog-track" style="margin-top:.8rem"><div class="prog-fill" id="progFillDonate" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ SHOP PAGE ══════════════════════════ -->
+<div id="page-shop" class="page">
+  <div class="shop-header">
+    <button class="back-btn" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </button>
+    <div class="page-h1">Our Collection</div>
+    <div class="page-sub">Every piece is upcycled from donated clothing — sustainably made, entirely unique.</div>
+    <div id="shopFreeBar" class="shop-info-bar">Your card is complete — add any 2 items and they will be applied as complimentary.</div>
+    <div class="shop-controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Tops">Tops</button>
+      <button class="filter-btn" data-filter="Jackets">Jackets</button>
+      <button class="filter-btn" data-filter="Trousers">Trousers</button>
+      <button class="filter-btn" data-filter="Dresses">Dresses</button>
+      <button class="filter-btn" data-filter="Accessories">Accessories</button>
+      <select class="shop-sort" onchange="renderShop()">
+        <option value="default">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </div>
+  </div>
+  <div id="shopGrid" class="shop-grid" style="margin:0 0 4rem"></div>
+</div>
+
+<!-- ══════════════════════════ CART PAGE ══════════════════════════ -->
+<div id="page-cart" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('shop')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Continue Shopping
+    </button>
+    <div class="page-h1">Your Cart</div>
+  </div>
+  <div id="cartContent"></div>
+</div>
+
+<!-- ══════════════════════════ CHECKOUT PAGE ══════════════════════════ -->
+<div id="page-checkout" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('cart')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Cart
+    </button>
+    <div class="page-h1">Checkout</div>
+  </div>
+  <div class="checkout-layout">
+    <div>
+      <div class="co-section">
+        <h3><span class="co-step-n">1</span> Contact Details</h3>
+        <div class="form-row">
+          <div class="form-field"><label>First Name</label><input type="text" placeholder="Jane"/></div>
+          <div class="form-field"><label>Last Name</label><input type="text" placeholder="Smith"/></div>
+        </div>
+        <div class="form-field"><label>Email Address</label><input type="email" placeholder="jane@example.com"/></div>
+        <div class="form-field"><label>Phone Number</label><input type="tel" placeholder="+351 912 345 678"/></div>
+      </div>
+      <div class="co-section">
+        <h3><span class="co-step-n">2</span> Delivery Address</h3>
+        <div class="form-field"><label>Street Address</label><input type="text" placeholder="Rua Augusta, 123"/></div>
+        <div class="form-row">
+          <div class="form-field"><label>City</label><input type="text" placeholder="Lisbon"/></div>
+          <div class="form-field"><label>Postcode</label><input type="text" placeholder="1100-048"/></div>
+        </div>
+        <div class="form-field"><label>Country</label>
+          <select><option>Portugal</option><option>Spain</option><option>France</option><option>Germany</option><option>United Kingdom</option><option>United States</option></select>
+        </div>
+      </div>
+      <div class="co-section">
+        <h3><span class="co-step-n">3</span> Payment</h3>
+        <div class="form-field"><label>Card Number</label><input type="text" placeholder="•••• •••• •••• ••••" maxlength="19"/></div>
+        <div class="form-row">
+          <div class="form-field"><label>Expiry</label><input type="text" placeholder="MM / YY" maxlength="7"/></div>
+          <div class="form-field"><label>CVV</label><input type="text" placeholder="•••" maxlength="4"/></div>
+        </div>
+        <div class="form-field"><label>Name on Card</label><input type="text" placeholder="Jane Smith"/></div>
+      </div>
+      <button class="place-btn" onclick="placeOrder()">Place Order</button>
+    </div>
+    <div>
+      <div class="order-summary">
+        <div class="os-title">Order Summary</div>
+        <div id="checkoutSummary"></div>
+        <hr class="os-divider"/>
+        <div id="checkoutTotal" class="os-total"></div>
+        <div id="checkoutFreeNotice" style="display:none" class="free-notice">2 complimentary items applied to your order.</div>
+        <button class="place-btn" onclick="placeOrder()">Place Order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ CONFIRM PAGE ══════════════════════════ -->
+<div id="page-confirm" class="page">
+  <div class="confirm-box">
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Thank you.</h2>
+    <p>Your order has been placed. A confirmation will be sent to your email shortly.</p>
+    <p class="confirm-num" id="confirmOrderNum"></p>
+    <p style="margin-top:1rem">Your purchase supports a circular fashion economy. Thank you for making a difference.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap">
+      <button class="btn-primary" onclick="showPage('shop')">Continue Shopping</button>
+      <button class="btn-secondary" onclick="showPage('donate')">Donate More</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODALS ══════════════════════════ -->
+<div id="cameraModal">
+  <div class="cam-modal-inner">
+    <h3>Take a Photograph</h3>
+    <video id="liveVideo" autoplay playsinline muted></video>
+    <div class="cam-modal-btns">
+      <button class="snap-btn" onclick="snapPhoto()">Capture Photo</button>
+      <button class="cancel-btn" onclick="closeCamera()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="productModal">
+  <div class="pm-inner" id="pmInner"></div>
+</div>
+
+<script>
+/* ════════════ STATE ════════════ */
+let stamps = 0;
+const TOTAL = 10;
+let donateBasket = [];
+let cart = [];
+let freeItemsRemaining = 0;
+let currentPhoto = null;
+let cameraStream = null;
+let totalDonated = 0, totalSold = 0;
+
+/* ════════════ PRODUCTS ════════════ */
+const PRODUCTS = [
+  {id:1, name:'Patched Denim Jacket',    cat:'Jackets',     price:38, story:'Reconstructed from three donated denim jackets, each contributing texture and character.', size:'M', color:'Indigo',     badge:'New'},
+  {id:2, name:'Linen Wrap Dress',        cat:'Dresses',     price:29, story:'Shaped from a donated linen tablecloth and two cotton blouses, carefully resewn.',          size:'S / M', color:'Oat',   badge:''},
+  {id:3, name:'Cropped Knit Sweater',    cat:'Tops',        price:22, story:'Re-knitted entirely from two oversized donated jumpers. Soft and warm.',                   size:'XS – L', color:'Sage',  badge:'Popular'},
+  {id:4, name:'Wide-Leg Cargo Trousers', cat:'Trousers',    price:34, story:'Upcycled from military surplus and donated workwear. Reinforced seams.',                   size:'30 – 34', color:'Khaki', badge:''},
+  {id:5, name:'Patchwork Tote Bag',      cat:'Accessories', price:18, story:'Sewn entirely from fabric offcuts and donated shirt remnants. No two alike.',              size:'One size', color:'Multi', badge:''},
+  {id:6, name:'Upcycled Wool Blazer',    cat:'Jackets',     price:45, story:'Tailored from three donated wool blazers. Fully lined with repurposed fabric.',            size:'S – XL', color:'Charcoal', badge:'New'},
+  {id:7, name:'Floral Midi Skirt',       cat:'Dresses',     price:26, story:'Cut and resewn from donated curtains and printed scarves. Fluid and lightweight.',         size:'XS – M', color:'Floral', badge:''},
+  {id:8, name:'Oversized Cotton Tee',    cat:'Tops',        price:16, story:'Reimagined from several donated cotton shirts, combined into one easy silhouette.',        size:'S – XL', color:'Off-white', badge:'Popular'},
+  {id:9, name:'Repaired Straight Jeans', cat:'Trousers',    price:30, story:'Donated jeans, professionally repaired, reinforced, and finished with visible stitching.',  size:'28 – 34', color:'Blue', badge:''},
+  {id:10,name:'Fabric Bucket Hat',       cat:'Accessories', price:14, story:'Crafted from shirting fabric remnants. Lightweight and fully packable.',                   size:'One size', color:'Mixed', badge:''},
+  {id:11,name:'Quilted Reversible Vest', cat:'Jackets',     price:32, story:'Quilted by hand from donated duvet covers. Fully reversible, two looks in one.',           size:'XS – L', color:'Terracotta', badge:'New'},
+  {id:12,name:'Ruffled Cotton Blouse',   cat:'Tops',        price:20, story:'Constructed from donated cotton shirts and blouses. Soft with gathered collar detail.',    size:'XS – XL', color:'Ivory', badge:''},
+];
+
+/* Minimal SVG garment placeholder */
+const garmentSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 3Q12 1.5 13.5 1.5Q15 1.5 15 3"/>
+  <line x1="12" y1="3" x2="7" y2="7"/>
+  <line x1="12" y1="3" x2="17" y2="7"/>
+  <path d="M7 7L4 8L3 13L6 13L6 22L18 22L18 13L21 13L20 8L17 7"/>
+  <path d="M9 13Q12 10.5 15 13"/>
+  <path d="M9 15Q12 17.5 15 15"/>
+</svg>`;
+
+let activeFilter = 'all';
+
+/* ════════════ PAGE ROUTING ════════════ */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const nl = document.getElementById('nl-' + name);
+  if (nl) nl.classList.add('active');
+  if (name === 'home') { triggerReveal(); renderFeatured(); }
+  if (name === 'shop') { renderShop(); updateFreeNotice(); }
+  if (name === 'cart') renderCart();
+  if (name === 'checkout') renderCheckoutSummary();
+}
+
+function goTo(page, sec) {
+  showPage(page);
+  setTimeout(() => { const el = document.getElementById(sec); if (el) el.scrollIntoView({behavior:'smooth'}); }, 80);
+}
+
+function scrollTo_(sel) {
+  const el = document.querySelector(sel);
+  if (el) el.scrollIntoView({behavior:'smooth'});
+}
+
+/* ════════════ SHOP ════════════ */
+function filteredProducts() {
+  let list = activeFilter === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.cat.toLowerCase().includes(activeFilter.toLowerCase()));
+  const sortEl = document.querySelector('.shop-sort');
+  const sort = sortEl ? sortEl.value : 'default';
+  if (sort === 'price-asc')  list.sort((a,b) => a.price - b.price);
+  if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (sort === 'name')       list.sort((a,b) => a.name.localeCompare(b.name));
+  return list;
+}
+
+function productCardHTML(p, minimal) {
+  const isFree = stamps >= TOTAL && freeItemsRemaining > 0;
+  return `<div class="product-card" onclick="openProduct(${p.id})">
+    ${p.badge ? `<div class="product-badge-tag">${p.badge}</div>` : ''}
+    ${isFree ? '<div class="product-badge-tag free-badge" style="left:auto;right:1rem">Redeemable Free</div>' : ''}
+    <div class="product-img">${garmentSVG}</div>
+    <div class="product-body">
+      <div class="product-cat">${p.cat} — ${p.color}</div>
+      <div class="product-name">${p.name}</div>
+      ${!minimal ? `<div class="product-story">${p.story}</div>` : ''}
+      <div class="product-footer">
+        <div class="product-price">€${p.price}</div>
+        <button class="atc-btn ${isFree ? 'free-btn' : ''}" onclick="event.stopPropagation();addToCart(${p.id})">
+          ${isFree ? 'Add — Free' : 'Add to Cart'}
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderShop() {
+  const grid = document.getElementById('shopGrid');
+  if (!grid) return;
+  grid.innerHTML = filteredProducts().map(p => productCardHTML(p, false)).join('');
+}
+
+function renderFeatured() {
+  const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
+  grid.innerHTML = PRODUCTS.slice(0, 3).map(p => productCardHTML(p, false)).join('');
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderShop();
+  });
+});
+
+function updateFreeNotice() {
+  const bar = document.getElementById('shopFreeBar');
+  if (bar) bar.classList.toggle('show', stamps >= TOTAL);
+}
+
+/* ════════════ PRODUCT MODAL ════════════ */
+function openProduct(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  const isFree = stamps >= TOTAL && freeItemsRemaining > 0;
+  document.getElementById('pmInner').innerHTML = `
+    <div class="pm-img">${garmentSVG}</div>
+    <div class="pm-body">
+      <button class="pm-close" onclick="closeProduct()">✕</button>
+      <div class="pm-cat">${p.cat} — ${p.color}</div>
+      <div class="pm-name">${p.name}</div>
+      <div class="pm-price">€${p.price}${isFree ? ' <span style="font-size:.7rem;letter-spacing:.1em;background:var(--forest);color:var(--cream);padding:.2rem .6rem;font-family:Jost,sans-serif;font-weight:500">Complimentary</span>' : ''}</div>
+      <div class="pm-desc">${p.story}</div>
+      <div class="pm-details">
+        <div><strong>Size:</strong> ${p.size}</div>
+        <div><strong>Colour:</strong> ${p.color}</div>
+        <div><strong>Category:</strong> ${p.cat}</div>
+        <div><strong>Material:</strong> 100% upcycled</div>
+      </div>
+      <button class="pm-atc" onclick="addToCart(${p.id});closeProduct()">${isFree ? 'Add to Cart — Complimentary' : 'Add to Cart — €' + p.price}</button>
+    </div>`;
+  document.getElementById('productModal').classList.add('open');
+}
+
+function closeProduct() {
+  document.getElementById('productModal').classList.remove('open');
+}
+
+document.getElementById('productModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('productModal')) closeProduct();
+});
+
+/* ════════════ CART ════════════ */
+function addToCart(productId) {
+  const p = PRODUCTS.find(x => x.id === productId);
+  const existing = cart.find(c => c.id === productId);
+  const isFree = stamps >= TOTAL && freeItemsRemaining > 0;
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({id: productId, qty: 1, free: isFree});
+    if (isFree) freeItemsRemaining = Math.max(0, freeItemsRemaining - 1);
+  }
+  updateCartBadge();
+  showToast(p.name + ' added to cart');
+  totalSold++;
+  const hs = document.getElementById('heroSold');
+  if (hs) hs.textContent = totalSold;
+}
+
+function updateCartBadge() {
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  const badge = document.getElementById('cartCount');
+  badge.textContent = count;
+  badge.classList.toggle('hidden', count === 0);
+}
+
+function calcTotals() {
+  let subtotal = 0, freeDiscount = 0;
+  cart.forEach(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    subtotal += p.price * c.qty;
+    if (c.free) freeDiscount += p.price;
+  });
+  return {subtotal, freeDiscount, total: Math.max(0, subtotal - freeDiscount)};
+}
+
+function renderCart() {
+  const el = document.getElementById('cartContent');
+  if (!el) return;
+  if (cart.length === 0) {
+    el.innerHTML = `<div class="cart-empty">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-7.43H6"/></svg>
+      <p>Your cart is empty.</p>
+      <button class="btn-primary" onclick="showPage('shop')">Browse Collection</button>
+    </div>`;
+    return;
+  }
+  const {subtotal, freeDiscount, total} = calcTotals();
+  el.innerHTML = `<div class="cart-layout">
+    <div>
+      <div class="cart-items">
+        ${cart.map(c => {
+          const p = PRODUCTS.find(x => x.id === c.id);
+          return `<div class="cart-item">
+            <div class="cart-thumb">${garmentSVG}</div>
+            <div class="cart-info">
+              <div class="cart-name">${p.name}${c.free ? '<span class="free-label">Complimentary</span>' : ''}</div>
+              <div class="cart-meta">${p.cat} · ${p.color} · Size ${p.size}</div>
+              <div class="cart-qty">
+                <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+                <span class="qty-n">${c.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+              </div>
+            </div>
+            <div class="cart-price">${c.free ? '<span style="text-decoration:line-through;opacity:.35">€'+p.price+'</span> €0' : '€'+(p.price*c.qty)}</div>
+            <button class="cart-remove" onclick="removeFromCart(${c.id})">✕</button>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div>
+      <div class="order-summary">
+        <div class="os-title">Order Summary</div>
+        ${cart.map(c => {
+          const p = PRODUCTS.find(x => x.id === c.id);
+          return `<div class="os-row"><span>${p.name} ×${c.qty}</span><span>${c.free ? '€0' : '€'+(p.price*c.qty)}</span></div>`;
+        }).join('')}
+        ${freeDiscount > 0 ? `<div class="os-row" style="color:var(--forest)"><span>Complimentary discount</span><span>−€${freeDiscount.toFixed(2)}</span></div>` : ''}
+        <div class="os-row"><span>Delivery</span><span style="color:var(--forest)">Complimentary</span></div>
+        <hr class="os-divider"/>
+        <div class="os-total"><span>Total</span><span>€${total.toFixed(2)}</span></div>
+        ${freeDiscount > 0 ? '<div class="free-notice">Complimentary reward applied.</div>' : ''}
+        <button class="btn-primary" style="width:100%;margin-bottom:.8rem" onclick="showPage('checkout')">Proceed to Checkout</button>
+        <button class="btn-secondary" style="width:100%" onclick="showPage('shop')">Continue Shopping</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function changeQty(id, delta) {
+  const c = cart.find(x => x.id === id);
+  if (!c) return;
+  c.qty = Math.max(1, c.qty + delta);
+  updateCartBadge();
+  renderCart();
+}
+
+function removeFromCart(id) {
+  const c = cart.find(x => x.id === id);
+  if (c && c.free) freeItemsRemaining++;
+  cart = cart.filter(x => x.id !== id);
+  updateCartBadge();
+  renderCart();
+}
+
+/* ════════════ CHECKOUT ════════════ */
+function renderCheckoutSummary() {
+  const {subtotal, freeDiscount, total} = calcTotals();
+  const cs = document.getElementById('checkoutSummary');
+  if (cs) cs.innerHTML = cart.map(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    return `<div class="os-row"><span>${p.name} ×${c.qty}</span><span>${c.free ? '€0' : '€'+(p.price*c.qty)}</span></div>`;
+  }).join('') + (freeDiscount > 0 ? `<div class="os-row" style="color:var(--forest)"><span>Complimentary discount</span><span>−€${freeDiscount.toFixed(2)}</span></div>` : '');
+  const ct = document.getElementById('checkoutTotal');
+  if (ct) ct.innerHTML = `<span>Total</span><span>€${total.toFixed(2)}</span>`;
+  const fn = document.getElementById('checkoutFreeNotice');
+  if (fn) fn.style.display = freeDiscount > 0 ? '' : 'none';
+}
+
+function placeOrder() {
+  const orderNum = 'RT-' + Math.floor(10000 + Math.random() * 90000);
+  if (stamps >= TOTAL) stamps = 0;
+  freeItemsRemaining = 0;
+  cart = [];
+  updateCartBadge();
+  updateAllCards();
+  document.getElementById('confirmOrderNum').textContent = 'Order ' + orderNum;
+  showPage('confirm');
+}
+
+/* ════════════ DONATE / CAMERA ════════════ */
+function triggerUpload() { document.getElementById('fileInput').click(); }
+
+function handleFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => setPhoto(ev.target.result);
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function setPhoto(dataUrl) {
+  currentPhoto = dataUrl;
+  const area = document.getElementById('cameraArea');
+  area.innerHTML = `<img class="preview" src="${dataUrl}" alt="preview"/><div class="cam-overlay">Change photograph</div>`;
+  area.classList.add('has-image');
+  area.onclick = triggerUpload;
+  document.getElementById('btnClear').style.display = '';
+  checkForm();
+}
+
+function clearPhoto() {
+  currentPhoto = null;
+  const area = document.getElementById('cameraArea');
+  area.innerHTML = `<div class="cam-placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>
+    <p>Click to upload a photograph</p>
+    <span>or use camera below</span>
+  </div>
+  <div class="cam-overlay">Change photograph</div>`;
+  area.classList.remove('has-image');
+  area.onclick = triggerUpload;
+  document.getElementById('btnClear').style.display = 'none';
+  checkForm();
+}
+
+async function openCamera() {
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}, audio:false});
+    document.getElementById('liveVideo').srcObject = cameraStream;
+    document.getElementById('cameraModal').classList.add('open');
+  } catch { showToast('Camera unavailable — please upload a photograph'); }
+}
+
+function snapPhoto() {
+  const video = document.getElementById('liveVideo');
+  const canvas = document.getElementById('snapCanvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  setPhoto(canvas.toDataURL('image/jpeg', 0.85));
+  closeCamera();
+}
+
+function closeCamera() {
+  if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+  document.getElementById('cameraModal').classList.remove('open');
+}
+
+function checkForm() {
+  const ok = currentPhoto &&
+    document.getElementById('itemName').value.trim() &&
+    document.getElementById('itemCat').value &&
+    document.getElementById('itemCond').value;
+  document.getElementById('addItemBtn').disabled = !ok;
+}
+
+function addToBasket() {
+  const item = {
+    id: Date.now(),
+    photo: currentPhoto,
+    name: document.getElementById('itemName').value.trim(),
+    cat: document.getElementById('itemCat').value,
+    cond: document.getElementById('itemCond').value
+  };
+  donateBasket.push(item);
+  renderBasket();
+  clearPhoto();
+  ['itemName','itemNote'].forEach(id => document.getElementById(id).value = '');
+  ['itemCat','itemCond'].forEach(id => document.getElementById(id).value = '');
+  checkForm();
+  showToast(item.name + ' added to basket');
+  updateDonateNavBadge();
+}
+
+function removeFromBasket(id) {
+  donateBasket = donateBasket.filter(i => i.id !== id);
+  renderBasket();
+  updateDonateNavBadge();
+}
+
+function renderBasket() {
+  const list = document.getElementById('basketList');
+  const empty = document.getElementById('basketEmpty');
+  const summary = document.getElementById('basketSummaryEl');
+  const btn = document.getElementById('submitBtn');
+  if (donateBasket.length === 0) {
+    empty.style.display = ''; list.style.display = 'none'; summary.style.display = 'none'; btn.disabled = true; return;
+  }
+  empty.style.display = 'none'; list.style.display = ''; summary.style.display = ''; btn.disabled = false;
+  list.innerHTML = donateBasket.map(item => `
+    <div class="basket-item">
+      <div class="bi-thumb">${item.photo ? `<img src="${item.photo}" alt="${item.name}"/>` : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round"><path d="M12 3Q12 1.5 13.5 1.5Q15 1.5 15 3"/><line x1="12" y1="3" x2="7" y2="7"/><line x1="12" y1="3" x2="17" y2="7"/><path d="M7 7L4 8L3 13L6 13L6 22L18 22L18 13L21 13L20 8L17 7"/></svg>`}</div>
+      <div class="bi-info"><div class="bi-name">${item.name}</div><div class="bi-meta">${item.cat} · ${item.cond}</div></div>
+      <button class="bi-remove" onclick="removeFromBasket(${item.id})">✕</button>
+    </div>`).join('');
+  const newTotal = Math.min(stamps + donateBasket.length, TOTAL);
+  document.getElementById('bsCount').textContent = donateBasket.length;
+  document.getElementById('bsStamps').textContent = donateBasket.length;
+  document.getElementById('bsTotal').textContent = newTotal + ' / ' + TOTAL;
+}
+
+function updateDonateNavBadge() {
+  const badge = document.getElementById('donateCount');
+  badge.textContent = donateBasket.length;
+  badge.classList.toggle('hidden', donateBasket.length === 0);
+}
+
+function submitDonation() {
+  const earned = donateBasket.length;
+  const wasComplete = stamps >= TOTAL;
+  stamps = Math.min(stamps + earned, TOTAL);
+  totalDonated += earned;
+  donateBasket = [];
+  renderBasket();
+  updateDonateNavBadge();
+  updateAllCards();
+  updateFreeNotice();
+  const hc = document.getElementById('heroCount');
+  if (hc) hc.textContent = totalDonated;
+  if (!wasComplete && stamps >= TOTAL) {
+    freeItemsRemaining = 2;
+    showToast('Card complete — 2 complimentary items are now available in the shop');
+  } else {
+    showToast(earned + ' garment' + (earned > 1 ? 's' : '') + ' donated · ' + earned + ' stamp' + (earned > 1 ? 's' : '') + ' earned');
+  }
+  setTimeout(() => { showPage('home'); setTimeout(() => scrollTo_('#reward'), 100); }, 2000);
+}
+
+/* ════════════ TOKEN CARD ════════════ */
+function buildCard(gridId) {
+  const g = document.getElementById(gridId);
+  if (!g) return;
+  g.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    const s = document.createElement('div');
+    s.className = 'stamp' + (i < stamps ? ' filled' : '');
+    g.appendChild(s);
+  }
+}
+
+function updateAllCards() {
+  ['stampsHome','stampsDonate'].forEach(buildCard);
+  const pct = (stamps / TOTAL * 100) + '%';
+  ['progFillHome','progFillDonate'].forEach(id => { const el = document.getElementById(id); if (el) el.style.width = pct; });
+  const label = stamps + ' / ' + TOTAL;
+  const ph = document.getElementById('progTextHome');
+  const sh = document.getElementById('tcSubHome');
+  const pd = document.getElementById('tcSubDonate');
+  if (ph) ph.textContent = label;
+  if (sh) sh.textContent = stamps + ' of ' + TOTAL + ' stamps collected';
+  if (pd) pd.textContent = label + ' stamps';
+  const rm = document.getElementById('rewardMsgHome');
+  if (rm) rm.classList.toggle('show', stamps >= TOTAL);
+}
+
+/* ════════════ TOAST ════════════ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ════════════ SCROLL REVEAL ════════════ */
+function triggerReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08});
+  document.querySelectorAll('#page-home .reveal').forEach(el => { el.classList.remove('visible'); obs.observe(el); });
+}
+
+/* ════════════ INIT ════════════ */
+updateAllCards();
+renderFeatured();
+triggerReveal();
+</script>
+</body>
+</html>
